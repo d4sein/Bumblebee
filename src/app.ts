@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 import * as Discord from 'discord.js'
-import { commands } from './commands'
+import { commands } from './commands.config'
 import { config } from 'dotenv'
 
 config()
