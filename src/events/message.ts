@@ -19,10 +19,10 @@ module.exports = {
         .reduce((acc, [key, ...values]) => acc
           .set(key, values.length ? values : true), new Map)
     
-    const commandObj: Command | undefined= commands.get(commandName)
+    const commandObj: Command | undefined = commands.get(commandName)
     if (!commandObj) return
 
-    commandObj.run(client, ctx, args)
+    commandObj.run({client: client, ctx: ctx, args: args})
   },
   name: 'message'
 }
