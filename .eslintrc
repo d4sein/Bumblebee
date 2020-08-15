@@ -10,7 +10,6 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    // "no-console": 1,
-    "semi": [2, "never"]
+    "semi": ["error", "never"]
   }
 }

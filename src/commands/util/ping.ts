@@ -1,7 +1,7 @@
 import * as Discord from 'discord.js'
 
 module.exports = {
-  run: async (ctx: Discord.Message): Promise<void> => {
+  run: async ({ctx}: {ctx: Discord.Message}): Promise<void> => {
     const embed = new Discord.MessageEmbed()
       .setDescription('Pinging..')
 
