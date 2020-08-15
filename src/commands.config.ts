@@ -8,6 +8,7 @@ export interface Command {
       args: Map<string, string[] | boolean>
     }
   ) => Promise<void>,
+  parameters: Map<string, string[]>,
   name: string,
   description: string,
   usage: string,
