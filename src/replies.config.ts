@@ -1,6 +1,6 @@
 export const errors = {
-  no_bot_prefix_error: 'Oh, no. Seems like my prefix hasn\'t been set properly.',
-  no_positional_params_error: 'Positional params haven\'t been set for this command. (This is an error btw)',
+  no_bot_prefix: 'Oh, no. Seems like my prefix hasn\'t been set properly.',
+  no_positional_params: 'Positional params haven\'t been set for this command. (This is an error btw)',
 }
 
 // Prefix `fn` to identify functions

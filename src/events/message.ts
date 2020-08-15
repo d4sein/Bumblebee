@@ -5,7 +5,7 @@ import { responses, errors } from '../replies.config'
 module.exports = {
   run: async (client: Discord.Client, ctx: Discord.Message) => {
     const prefix: string | undefined = process.env.PREFIX
-    if (!prefix) return await ctx.channel.send(errors.no_bot_prefix_error)
+    if (!prefix) return await ctx.channel.send(errors.no_bot_prefix)
 
     if (!ctx.content.startsWith(prefix)) return
 
@@ -45,7 +45,7 @@ module.exports = {
     }
 
     const positionalParams: string[] | undefined = commandObj.parameters.get('positional')
-    if (!positionalParams) return ctx.channel.send(errors.no_positional_params_error)
+    if (!positionalParams) return ctx.channel.send(errors.no_positional_params)
 
     const allPositionalArgs: boolean = positionalParams
       .every(arg => arrayArgs.includes(arg))
