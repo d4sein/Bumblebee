@@ -40,14 +40,15 @@ module.exports = {
       .setTitle(v_title)
       .setDescription(v_desc)
 
-    const announce_channel = client.channels.fetch(v_channel)
-    if (!announce_channel) {
-      // await ctx.channel.send...
-      return
-    }
-
-    await announce_channel
-      .then(ch => (ch as Discord.TextChannel).send(embed))
+    const announce_channel = await client.channels
+      .fetch(v_channel)
+      .catch(async err => {
+        await ctx.channel.send(`The channel you gave me is useless.`)
+      })
+      .then(ch => {
+        if (!ch) return
+        (ch as Discord.TextChannel).send(embed)
+      })
   },
   name: 'announce',
   description: 'Sends an announcement',

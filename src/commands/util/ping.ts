@@ -6,7 +6,7 @@ module.exports = {
       .then(msg => {
         const latency = msg.createdTimestamp - ctx.createdTimestamp
         
-        msg.edit(latency)
+        msg.edit(latency + 'ms')
       })
   },
   name: 'ping',
