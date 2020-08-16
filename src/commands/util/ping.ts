@@ -1,12 +1,12 @@
 import { CommandParams } from '../../commands.config'
 
 module.exports = {
-  run: async ({ctx}: CommandParams): Promise<void> => {
-    ctx.channel.send('Pinging..')
-      .then(msg => {
-        const latency = msg.createdTimestamp - ctx.createdTimestamp
+  run: async (params: CommandParams): Promise<void> => {
+    params.ctx.channel.send('Pinging..')
+      .then(async msg => {
+        const latency = msg.createdTimestamp - params.ctx.createdTimestamp
         
-        msg.edit(latency + 'ms')
+        await msg.edit(latency + 'ms')
       })
   },
   name: 'ping',

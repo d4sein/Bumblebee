@@ -9,10 +9,6 @@ export const errors = {
 
 // Prefix `fn` to identify functions
 export const responses = {
-  noCommandGiven: 'You haven\'t given me any commands.',
-  fnNotValidCommand: (commandName: string): string => {
-    return `The command \`${commandName}\` doesn't exist.`
-  },
   fnNotValidFlag: (usage: string): string => {
     return `You've given me invalid flags.${show_usage(usage)}`
   },

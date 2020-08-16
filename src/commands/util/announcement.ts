@@ -35,14 +35,11 @@ module.exports = {
       .setTitle(newTitle)
       .setDescription(newDesc)
 
-    const announce_channel = await params.client.channels
+    await params.client.channels
       .fetch(newChannel)
-      .catch(async err => {
-        await params.ctx.channel.send(`The channel you gave me is useless.`)
-      })
-      .then(ch => {
-        if (!ch) return
-        (ch as Discord.TextChannel).send(embed)
+      .then(ch => (ch as Discord.TextChannel).send(embed))
+      .catch(async () => {
+        await params.ctx.channel.send('The channel you gave me is useless.')
       })
   },
   name: 'announce',

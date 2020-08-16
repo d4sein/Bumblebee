@@ -17,9 +17,7 @@ module.exports = {
     let commandName: string | undefined = command.shift()
 
     // If command is undefined or only the prefix has been sent
-    if (!commandName || !commandName.slice(prefix.length)) {
-      return await ctx.channel.send(responses.noCommandGiven)
-    }
+    if (!commandName || !commandName.slice(prefix.length)) return
 
     commandName = commandName.slice(prefix.length).trim()
 
@@ -30,8 +28,8 @@ module.exports = {
       .reduce((acc, [key, ...values]) => acc
         .set(key, values.length ? values : true), new Map)
 
-    const commandObj: Command | undefined = commands.get(commandName)
-    if (!commandObj) return ctx.channel.send(responses.fnNotValidCommand(commandName))
+    const commandObj = commands.get(commandName)
+    if (!commandObj) return
 
     // The code below is a series of checks
     // to assure the command is valid all throughout
