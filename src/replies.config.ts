@@ -13,11 +13,11 @@ export const responses = {
   fn_not_a_valid_command: (commandName: string): string => {
     return `The command \`${commandName}\` doesn't exist.`
   },
-  fn_not_a_valid_argument: (usage: string): string => {
-    return `You've given me invalid arguments.${show_usage(usage)}`
+  fn_not_a_valid_flag: (usage: string): string => {
+    return `You've given me invalid flags.${show_usage(usage)}`
   },
-  fn_missing_positional_argument: (usage: string): string => {
-    return `You're missing positional arguments.${show_usage(usage)}`
+  fn_missing_positional_flag: (usage: string): string => {
+    return `You're missing positional flags.${show_usage(usage)}`
   },
   fn_value_is_not_keyword: (value: string, usage: string): string => {
     return `Value \`${value}\` can't be empty.${show_usage(usage)}`

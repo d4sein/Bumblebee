@@ -35,23 +35,23 @@ module.exports = {
 
     // The code below is a series of checks
     // to assure the command is valid all throughout
-    const arrayArgs: string[] = [...args.keys()]
+    const arrayFlags: string[] = [...args.keys()]
     const arrayParams: string[] = Array.from(commandObj.parameters.values())
       .reduce((a, b) => a.concat(b))
 
-    const validArgs: boolean = arrayArgs.every(arg => arrayParams.includes(arg))
-    if (!validArgs) {
-      return ctx.channel.send(responses.fn_not_a_valid_argument(commandObj.usage))
+    const validFlags: boolean = arrayFlags.every(flag => arrayParams.includes(flag))
+    if (!validFlags) {
+      return ctx.channel.send(responses.fn_not_a_valid_flag(commandObj.usage))
     }
 
     const positionalParams: string[] = commandObj.parameters.get('positional')!
     if (!positionalParams) return ctx.channel.send(errors.no_positional_params)
 
-    const allPositionalArgs: boolean = positionalParams
-      .every(arg => arrayArgs.includes(arg))
+    const allPositionalFlags: boolean = positionalParams
+      .every(flag => arrayFlags.includes(flag))
 
-    if (!allPositionalArgs) {
-      return ctx.channel.send(responses.fn_missing_positional_argument(commandObj.usage))
+    if (!allPositionalFlags) {
+      return ctx.channel.send(responses.fn_missing_positional_flag(commandObj.usage))
     }
 
     // Call the command if everything is ok
