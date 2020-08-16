@@ -1,14 +1,9 @@
 import * as Discord from 'discord.js'
-import { Command } from '../../commands.config'
+import { CommandParams } from '../../commands.config'
 import { responses } from '../../replies.config'
 
 module.exports = {
-  run: async ({client, command, ctx, args}: {
-    client: Discord.Client,
-    ctx: Discord.Message,
-    command: Command,
-    args: Map<string, string[] | boolean>
-  }): Promise<void> => {
+  run: async ({client, ctx, command, args}: CommandParams): Promise<void> => {
     let channel = args.get('ch')
     if (typeof channel === 'boolean') {
       await ctx.channel.send(
@@ -16,7 +11,7 @@ module.exports = {
       )
       return
     }
-    const v_channel = channel?.shift()?.replace(/\D/g, '')!
+    const v_channel: string = channel?.shift()?.replace(/\D/g, '')!
 
     let title = args.get('title')
     if (typeof title === 'boolean') {

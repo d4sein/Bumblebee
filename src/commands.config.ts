@@ -1,13 +1,15 @@
 import * as Discord from 'discord.js'
 
+export interface CommandParams {
+  client: Discord.Client,
+  ctx: Discord.Message,
+  command: Command,
+  args: Map<string, string[] | boolean>
+}
+
 export interface Command {
   run: (
-    {client, ctx, args}: {
-      client: Discord.Client,
-      ctx: Discord.Message,
-      command: Command,
-      args: Map<string, string[] | boolean>
-    }
+    {client, ctx, command, args}: CommandParams
   ) => Promise<void>,
   parameters: Map<string, string[]>,
   name: string,

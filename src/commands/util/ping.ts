@@ -1,7 +1,7 @@
-import * as Discord from 'discord.js'
+import { CommandParams } from '../../commands.config'
 
 module.exports = {
-  run: async ({ctx}: {ctx: Discord.Message}): Promise<void> => {
+  run: async ({ctx}: CommandParams): Promise<void> => {
     ctx.channel.send('Pinging..')
       .then(msg => {
         const latency = msg.createdTimestamp - ctx.createdTimestamp
