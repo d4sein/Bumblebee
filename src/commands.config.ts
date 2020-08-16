@@ -5,6 +5,7 @@ export interface Command {
     {client, ctx, args}: {
       client: Discord.Client,
       ctx: Discord.Message,
+      command: Command,
       args: Map<string, string[] | boolean>
     }
   ) => Promise<void>,

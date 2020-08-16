@@ -31,7 +31,7 @@ module.exports = {
         .set(key, values.length ? values : true), new Map)
 
     const commandObj: Command | undefined = commands.get(commandName)
-    if (!commandObj) return ctx.channel.send(responses.not_a_valid_command)
+    if (!commandObj) return ctx.channel.send(responses.fn_not_a_valid_command(commandName))
 
     // The code below is a series of checks
     // to assure the command is valid all throughout
@@ -44,7 +44,7 @@ module.exports = {
       return ctx.channel.send(responses.fn_not_a_valid_argument(commandObj.usage))
     }
 
-    const positionalParams: string[] | undefined = commandObj.parameters.get('positional')
+    const positionalParams: string[] = commandObj.parameters.get('positional')!
     if (!positionalParams) return ctx.channel.send(errors.no_positional_params)
 
     const allPositionalArgs: boolean = positionalParams
@@ -55,7 +55,7 @@ module.exports = {
     }
 
     // Call the command if everything is ok
-    commandObj.run({client: client, ctx: ctx, args: args})
+    commandObj.run({client: client, command: commandObj, ctx: ctx, args: args})
   },
   name: 'message'
 }
