@@ -7,7 +7,7 @@ module.exports = {
     let channel = args.get('ch')
     if (typeof channel === 'boolean') {
       await ctx.channel.send(
-        responses.fn_value_is_not_keyword('<channel>!', command.usage)
+        responses.fnValueIsNotKeyword('<channel>!', command.usage)
       )
       return
     }
@@ -16,7 +16,7 @@ module.exports = {
     let title = args.get('title')
     if (typeof title === 'boolean') {
       await ctx.channel.send(
-        responses.fn_value_is_not_keyword('<title>!', command.usage)
+        responses.fnValueIsNotKeyword('<title>!', command.usage)
       )
       return
     }
@@ -25,7 +25,7 @@ module.exports = {
     let desc = args.get('desc')
     if (typeof desc === 'boolean') {
       await ctx.channel.send(
-        responses.fn_value_is_not_keyword('<description>!', command.usage)
+        responses.fnValueIsNotKeyword('<description>!', command.usage)
       )
       return
     }

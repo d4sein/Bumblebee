@@ -5,7 +5,7 @@ import { responses, errors } from '../replies.config'
 module.exports = {
   run: async (client: Discord.Client, ctx: Discord.Message) => {
     const prefix: string | undefined = process.env.PREFIX
-    if (!prefix) return await ctx.channel.send(errors.no_bot_prefix)
+    if (!prefix) return await ctx.channel.send(errors.noBotPrefix)
 
     if (!ctx.content.startsWith(prefix)) return
 
@@ -18,7 +18,7 @@ module.exports = {
 
     // If command is undefined or only the prefix has been sent
     if (!commandName || !commandName.slice(prefix.length)) {
-      return await ctx.channel.send(responses.no_command_given)
+      return await ctx.channel.send(responses.noCommandGiven)
     }
 
     commandName = commandName.slice(prefix.length).trim()
@@ -31,7 +31,7 @@ module.exports = {
         .set(key, values.length ? values : true), new Map)
 
     const commandObj: Command | undefined = commands.get(commandName)
-    if (!commandObj) return ctx.channel.send(responses.fn_not_a_valid_command(commandName))
+    if (!commandObj) return ctx.channel.send(responses.fnNotValidCommand(commandName))
 
     // The code below is a series of checks
     // to assure the command is valid all throughout
@@ -41,17 +41,17 @@ module.exports = {
 
     const validFlags: boolean = arrayFlags.every(flag => arrayParams.includes(flag))
     if (!validFlags) {
-      return ctx.channel.send(responses.fn_not_a_valid_flag(commandObj.usage))
+      return ctx.channel.send(responses.fnNotValidFlag(commandObj.usage))
     }
 
     const positionalParams: string[] = commandObj.parameters.get('positional')!
-    if (!positionalParams) return ctx.channel.send(errors.no_positional_params)
+    if (!positionalParams) return ctx.channel.send(errors.noPositionalParams)
 
     const allPositionalFlags: boolean = positionalParams
       .every(flag => arrayFlags.includes(flag))
 
     if (!allPositionalFlags) {
-      return ctx.channel.send(responses.fn_missing_positional_flag(commandObj.usage))
+      return ctx.channel.send(responses.fnMissingPositionalFlag(commandObj.usage))
     }
 
     // Call the command if everything is ok
