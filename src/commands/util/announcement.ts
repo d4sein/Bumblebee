@@ -11,7 +11,7 @@ module.exports = {
       )
       return
     }
-    const v_channel: string = channel?.shift()?.replace(/\D/g, '')!
+    const newChannel: string = channel?.shift()?.replace(/\D/g, '')!
 
     let title = params.args.get('title')
     if (typeof title === 'boolean') {
@@ -20,7 +20,7 @@ module.exports = {
       )
       return
     }
-    const v_title: string = title?.join(' ')!
+    const newTitle: string = title?.join(' ')!
 
     let desc = params.args.get('desc')
     if (typeof desc === 'boolean') {
@@ -29,14 +29,14 @@ module.exports = {
       )
       return
     }
-    const v_desc: string = desc?.join(' ')!
+    const newDesc: string = desc?.join(' ')!
 
     const embed = new Discord.MessageEmbed()
-      .setTitle(v_title)
-      .setDescription(v_desc)
+      .setTitle(newTitle)
+      .setDescription(newDesc)
 
     const announce_channel = await params.client.channels
-      .fetch(v_channel)
+      .fetch(newChannel)
       .catch(async err => {
         await params.ctx.channel.send(`The channel you gave me is useless.`)
       })
