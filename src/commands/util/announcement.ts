@@ -3,29 +3,29 @@ import { CommandParams } from '../../commands.config'
 import { responses } from '../../replies.config'
 
 module.exports = {
-  run: async ({client, ctx, command, args}: CommandParams): Promise<void> => {
-    let channel = args.get('ch')
+  run: async (params: CommandParams): Promise<void> => {
+    let channel = params.args.get('ch')
     if (typeof channel === 'boolean') {
-      await ctx.channel.send(
-        responses.fnValueIsNotKeyword('<channel>!', command.usage)
+      await params.ctx.channel.send(
+        responses.fnValueIsNotKeyword('<channel>!', params.command.usage)
       )
       return
     }
     const v_channel: string = channel?.shift()?.replace(/\D/g, '')!
 
-    let title = args.get('title')
+    let title = params.args.get('title')
     if (typeof title === 'boolean') {
-      await ctx.channel.send(
-        responses.fnValueIsNotKeyword('<title>!', command.usage)
+      await params.ctx.channel.send(
+        responses.fnValueIsNotKeyword('<title>!', params.command.usage)
       )
       return
     }
     const v_title: string = title?.join(' ')!
 
-    let desc = args.get('desc')
+    let desc = params.args.get('desc')
     if (typeof desc === 'boolean') {
-      await ctx.channel.send(
-        responses.fnValueIsNotKeyword('<description>!', command.usage)
+      await params.ctx.channel.send(
+        responses.fnValueIsNotKeyword('<description>!', params.command.usage)
       )
       return
     }
@@ -35,10 +35,10 @@ module.exports = {
       .setTitle(v_title)
       .setDescription(v_desc)
 
-    const announce_channel = await client.channels
+    const announce_channel = await params.client.channels
       .fetch(v_channel)
       .catch(async err => {
-        await ctx.channel.send(`The channel you gave me is useless.`)
+        await params.ctx.channel.send(`The channel you gave me is useless.`)
       })
       .then(ch => {
         if (!ch) return
