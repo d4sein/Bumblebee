@@ -1,6 +1,6 @@
 import * as Discord from 'discord.js'
 import { CommandParams } from '../../commands.config'
-import { responses, errors } from '../../replies.config'
+import { errors } from '../../replies.config'
 import { functions } from '../../typeguards.config'
 
 module.exports = {

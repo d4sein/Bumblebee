@@ -2,7 +2,8 @@ import { CommandParams } from './commands.config'
 import { responses, errors } from './replies.config'
 
 export const functions = {
-  isArrayOfStrings: (params: CommandParams, e: string[] | boolean | undefined): e is string[] => {
+  isArrayOfStrings: (params: CommandParams,
+    e: string[] | boolean | undefined): e is string[] => {
     if (typeof e === 'undefined') {
       params.ctx.channel.send(errors.badCommandConfig)
       return false
