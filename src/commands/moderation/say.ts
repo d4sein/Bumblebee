@@ -6,20 +6,20 @@ import { functions } from '../../typeguards.config'
 module.exports = {
   run: async (params: CommandParams): Promise<void> => {
     const channel = params.args.get('ch')
-    if (!functions.isArray(params, channel)) return
+    if (!functions.isArrayOfStrings(params, channel)) return
     
     const newChannel = (channel as string[])
       .shift()!
       .replace(/\D/g, '')
 
     const title = params.args.get('title')
-    if (!functions.isArray(params, title)) return
+    if (!functions.isArrayOfStrings(params, title)) return
 
     const newTitle = (title as string[])
       .join(' ')
 
     const desc = params.args.get('desc')
-    if (!functions.isArray(params, desc)) return
+    if (!functions.isArrayOfStrings(params, desc)) return
 
     const newDesc = (desc as string[])
       .join(' ')
