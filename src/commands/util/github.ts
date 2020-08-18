@@ -4,9 +4,8 @@ import { CommandParams } from '../../commands.config'
 module.exports = {
   run: async (params: CommandParams): Promise<void> => {
     const embed = new Discord.MessageEmbed()
-      .setDescription(`[Here's my github repo](${process.env.GITHUB})`)
+      .setDescription(process.env.GITHUB)
       .setColor(process.env.EMBED_COLOR ?? 'DEFAULT')
-      .setTimestamp()
 
     await params.ctx.channel.send(embed)
   },
