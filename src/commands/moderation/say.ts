@@ -1,54 +1,28 @@
 import * as Discord from 'discord.js'
 import { CommandParams } from '../../commands.config'
 import { responses, errors } from '../../replies.config'
+import { functions } from '../../typeguards.config'
 
 module.exports = {
   run: async (params: CommandParams): Promise<void> => {
     const channel = params.args.get('ch')
-    if (!channel) {
-      await params.ctx.channel.send(errors.badCommandConfig)
-      return
-    }
-
-    if (typeof channel === 'boolean') {
-      await params.ctx.channel.send(
-        responses.fnIncorrectUsage(params.command.usage)
-      )
-      return
-    }
-    const newChannel: string | undefined = channel?.shift()?.replace(/\D/g, '')
-    if (!newChannel) {
-      await params.ctx.channel.send(
-        responses.fnIncorrectUsage(params.command.usage)
-      )
-      return
-    }
+    if (!functions.isArray(params, channel)) return
+    
+    const newChannel: string = (channel as string[])
+      .shift()!
+      .replace(/\D/g, '')
 
     const title = params.args.get('title')
-    if (typeof title === 'boolean') {
-      await params.ctx.channel.send(
-        responses.fnIncorrectUsage(params.command.usage)
-      )
-      return
-    }
-    const newTitle: string | undefined = title?.join(' ')
-    if (!newTitle) {
-      await params.ctx.channel.send(errors.badCommandConfig)
-      return
-    }
+    if (!functions.isArray(params, title)) return
+
+    const newTitle: string = (title as string[])
+      .join(' ')
 
     const desc = params.args.get('desc')
-    if (typeof desc === 'boolean') {
-      await params.ctx.channel.send(
-        responses.fnIncorrectUsage(params.command.usage)
-      )
-      return
-    }
-    const newDesc: string | undefined = desc?.join(' ')
-    if (!newDesc) {
-      await params.ctx.channel.send(errors.badCommandConfig)
-      return
-    }
+    if (!functions.isArray(params, desc)) return
+
+    const newDesc: string | undefined = (desc as string[])
+      .join(' ')
 
     const embed = new Discord.MessageEmbed()
       .setTitle(newTitle)
