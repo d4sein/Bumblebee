@@ -51,10 +51,9 @@ module.exports = {
     }
 
     const embed = new Discord.MessageEmbed()
-      .setAuthor(params.client.user?.username,
-        params.client.user?.avatarURL() ?? undefined)
       .setTitle(newTitle)
       .setDescription(newDesc)
+      .setColor(process.env.EMBED_COLOR ?? 'DEFAULT')
       .setTimestamp()
 
     await params.client.channels
@@ -68,9 +67,9 @@ module.exports = {
       })
       .catch(async () => params.ctx.channel.send(errors.unexpected))
   },
-  name: 'announce',
-  description: 'Sends an announcement',
-  usage: 'announce --ch <channel>! --title <title>! --desc <description>!',
+  name: 'say',
+  description: 'Sends a message',
+  usage: 'say --ch <channel>! --title <title>! --desc <description>!',
   category: 'Moderation',
   parameters: new Map([
     ['positional', ['ch', 'title', 'desc']],

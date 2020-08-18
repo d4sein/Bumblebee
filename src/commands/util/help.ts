@@ -10,6 +10,7 @@ module.exports = {
       value: string
     }
 
+    // Gets the name of the commands by category
     const categories = new Map(
       Object.entries(
         groupBy([...commands.keys()], (command): string => {
@@ -19,6 +20,7 @@ module.exports = {
       )
     )
     
+    // Gets the module for each command
     const newCategories: Map<string, Command[]> = Array.from(categories.keys())
       .map(category => {
         const arrCommands = categories.get(category)!
@@ -36,12 +38,11 @@ module.exports = {
       embedFields = []
 
       newCategories.get(arrCategories[indexCategories])
-        ?.forEach(module =>{
-          embedFields.push({
+        ?.forEach(module => embedFields.push({
             name: module.name,
             value: module.description
           })
-        })
+        )
     }
 
     addToEmbedFields()
@@ -56,6 +57,7 @@ module.exports = {
       .addFields(embedFields)
       .setColor(process.env.EMBED_COLOR ?? 'DEFAULT')
       .setTimestamp()
+      .setFooter(`${indexCategories + 1}/${arrCategories.length}`)
     
     await params.ctx.channel.send(embed)
       .then(async msg => {
@@ -67,7 +69,7 @@ module.exports = {
           && user.id === params.ctx.author.id
         }
 
-        const collector = msg.createReactionCollector(filter, { time: 20000 })
+        const collector = msg.createReactionCollector(filter, { time: 60000 })
 
         collector.on('collect', async (reaction, user) => {
           await reaction.users.remove(user)
@@ -84,7 +86,9 @@ module.exports = {
           embed = new Discord.MessageEmbed()
             .setTitle(arrCategories[indexCategories])
             .addFields(embedFields)
+            .setColor(process.env.EMBED_COLOR ?? 'DEFAULT')
             .setTimestamp()
+            .setFooter(`${indexCategories + 1}/${arrCategories.length}`)
           
           msg.edit(embed)
         })

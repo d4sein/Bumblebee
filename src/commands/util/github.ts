@@ -4,22 +4,15 @@ import { CommandParams } from '../../commands.config'
 module.exports = {
   run: async (params: CommandParams): Promise<void> => {
     const embed = new Discord.MessageEmbed()
-      .setDescription('Pinging..')
+      .setDescription(`[Here's my github repo](${process.env.GITHUB})`)
       .setColor(process.env.EMBED_COLOR ?? 'DEFAULT')
+      .setTimestamp()
 
-    params.ctx.channel.send(embed)
-      .then(async msg => {
-        const latency = msg.createdTimestamp - params.ctx.createdTimestamp
-        
-        embed
-          .setDescription(latency + 'ms')
-
-        await msg.edit(embed)
-      })
+    await params.ctx.channel.send(embed)
   },
-  name: 'ping',
-  description: 'Shows the bot\'s latency',
-  usage: 'ping',
+  name: 'github',
+  description: 'Sends the link to my github',
+  usage: 'github',
   category: 'Util',
     parameters: new Map([
     ['positional', []],
