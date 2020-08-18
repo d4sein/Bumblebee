@@ -51,7 +51,8 @@ module.exports = {
     }
 
     const embed = new Discord.MessageEmbed()
-      .setAuthor(params.ctx.author.username, params.ctx.author.avatarURL() ?? undefined)
+      .setAuthor(params.client.user?.username,
+        params.client.user?.avatarURL() ?? undefined)
       .setTitle(newTitle)
       .setDescription(newDesc)
       .setTimestamp()
