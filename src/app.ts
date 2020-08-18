@@ -42,7 +42,6 @@ function getCommandsRecursively (dir: string) {
     .forEach(dirent => getCommandsRecursively(path.join(dir, dirent.name)))
 }
 
-
 getEvents(eventsDir)
 getCommandsRecursively(commandsDir)
 

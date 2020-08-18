@@ -1,6 +1,6 @@
 // `fn` prefix for functions
 
-const reportIssue = 'Please report the issue at https://github.com/d4sein/Bumblebee/issues.'
+const reportIssue = `Please report the issue at ${process.env.GITHUB}/issues.`
 
 export const errors = {
   noBotPrefix: 'Oh, no. My prefix didn\'t get set properly, sorry :zany_face:.',
