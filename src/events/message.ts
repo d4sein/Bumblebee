@@ -11,8 +11,7 @@ module.exports = {
     // Defaults ARG_PREFIX to `--`
     const argPrefix: string = process.env.ARG_PREFIX ?? '--'
 
-    const command: string[] = ctx.content
-      .split(argPrefix)
+    const command: string[] = ctx.content.split(argPrefix)
     
     let commandName: string | undefined = command.shift()
 

@@ -1,31 +1,28 @@
 import * as Discord from "discord.js"
-import { commands, CommandParams } from "../../commands.config"
+import { commands, CommandParams, Command } from "../../commands.config"
+import { groupBy } from 'underscore'
 
 module.exports = {
   run: async (params: CommandParams): Promise<void> => {
-    interface Fields {
-      name: string,
-      value: string
-    }
+    const categories = new Map(
+      Object.entries(
+        groupBy([...commands.keys()], (command): string => {
+          const module = commands.get(command)
+          return module?.category ?? 'Rejected'
+        })
+      )
+    )
+    
+    const newCategories: Map<string, Command[]> = Array.from(categories.keys())
+      .map(category => {
+        const arrCommands = categories.get(category)
+        if (!arrCommands) return 'Rejected'
 
-    const embedFields: Fields[] = []
-
-    commands.forEach(module => {
-      embedFields.push({
-        name: module.name,
-        value: module.description
-      })
+        const newArrCommands = arrCommands.map(command => commands.get(command))
+        return [category, ...newArrCommands]
     })
-
-    const embedColor: string = process.env.EMBED_COLOR ?? 'DEFAULT'
-
-    const embed = new Discord.MessageEmbed()
-      .setTitle('LIST OF COMMANDS')
-      .addFields(embedFields)
-      .setColor(embedColor)
-      .setTimestamp()
-
-    params.ctx.channel.send(embed)
+    .reduce((acc, [key, ...values]) => acc
+      .set(key, values), new Map)
   },
   name: 'help',
   description: 'Shows the list of commands',
