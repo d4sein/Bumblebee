@@ -8,20 +8,20 @@ module.exports = {
     const channel = params.args.get('ch')
     if (!functions.isArray(params, channel)) return
     
-    const newChannel: string = (channel as string[])
+    const newChannel = (channel as string[])
       .shift()!
       .replace(/\D/g, '')
 
     const title = params.args.get('title')
     if (!functions.isArray(params, title)) return
 
-    const newTitle: string = (title as string[])
+    const newTitle = (title as string[])
       .join(' ')
 
     const desc = params.args.get('desc')
     if (!functions.isArray(params, desc)) return
 
-    const newDesc: string | undefined = (desc as string[])
+    const newDesc = (desc as string[])
       .join(' ')
 
     const embed = new Discord.MessageEmbed()
