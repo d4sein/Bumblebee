@@ -13,25 +13,22 @@ module.exports = {
     const categories = new Map(
       Object.entries(
         groupBy([...commands.keys()], (command): string => {
-          const module = commands.get(command)
-          return module?.category ?? 'Rejected'
+          const module = commands.get(command)!
+          return module.category
         })
       )
     )
     
     const newCategories: Map<string, Command[]> = Array.from(categories.keys())
       .map(category => {
-        const arrCommands = categories.get(category)
-        if (!arrCommands) return 'Rejected'
-
-        const newArrCommands = arrCommands.map(command => commands.get(command))
-        return [category, ...newArrCommands]
+        const arrCommands = categories.get(category)!
+        return [category, ...arrCommands.map(command => commands.get(command))]
     })
     .reduce((acc, [key, ...values]) => acc
       .set(key, values), new Map)
 
     const arrCategories = [...newCategories.keys()]
-    let indexCategories = 0
+    let indexCategories = 0 
 
     let embedFields: Fields[] = []
 
@@ -70,7 +67,7 @@ module.exports = {
           && user.id === params.ctx.author.id
         }
 
-        const collector = msg.createReactionCollector(filter, { time: 15000 })
+        const collector = msg.createReactionCollector(filter, { time: 20000 })
 
         collector.on('collect', async (reaction, user) => {
           await reaction.users.remove(user)
@@ -87,7 +84,6 @@ module.exports = {
           embed = new Discord.MessageEmbed()
             .setTitle(arrCategories[indexCategories])
             .addFields(embedFields)
-            .setColor(process.env.EMBED_COLOR ?? 'DEFAULT')
             .setTimestamp()
           
           msg.edit(embed)
