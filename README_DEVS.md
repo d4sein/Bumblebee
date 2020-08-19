@@ -4,7 +4,24 @@ Hi, if you're here it means you're interested in this project and may want to co
 
 We are **not** going to accept pull requests that are not befitting with the guidelines, thanks.  
 
-
-### Guidelines
+#### GUIDELINES
 * Do **not** change anything outside the `./src` folder unless it has been discussed beforehand and agreed upon.  
 * Run lint with `npm run lint` and fix all the problems before making a pull request.  
+
+#### SETUP
+You need git and node version 12+.  
+
+* Create a directory and run:
+    ```
+    git init
+    git remote add origin git@github.com:d4sein/Bumblebee.git
+    git pull origin dev
+
+    npm install
+    ```
+* Create a `.env` file and use `.env.example` as a reference
+* Run:
+    ```
+    tsc
+    npm start
+    ```
