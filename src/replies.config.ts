@@ -9,7 +9,7 @@ export const errors = {
   // Missing necessary information to run a command.
   badCommandConfig: `Seems like a bad developer worked on this one :zany_face:.\n${reportIssue}`,
   // Use this whenever there's an error that can't be explained by a
-  // poorly writen command or incorrect usage of a command by the user.
+  // poorly written command or incorrect usage of a command by the user.
   unexpected: 'Something happend, it doesn\'t seem to be a problem with neither me nor you :thinking:.'
 }
 
