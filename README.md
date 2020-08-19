@@ -15,3 +15,8 @@ You need git and node version 12+.
     npm install
     ```
 * Create a `.env` file and use `.env.example` as a reference
+* Run:
+    ```
+    tsc
+    npm start
+    ```
