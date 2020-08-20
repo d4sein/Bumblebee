@@ -10,14 +10,4 @@ We are **not** going to accept pull requests that are not befitting with the gui
 
 #### SETUP
 You need git and node version 12+.  
-
-* Create a directory and run:
-    ```
-    git init
-    git remote add origin git@github.com:d4sein/Bumblebee.git
-    git pull origin dev
-
-    npm install
-    ```
-* Create a `.env` file and use `.env.example` as a reference
-* Run `tsc` to transpile and `npm start` to start the bot  
+Work in progres..  
