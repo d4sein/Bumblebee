@@ -1,19 +1,16 @@
+import * as errors from './errors.config'
 import { CommandParams } from './commands.config'
-import { responses, errors } from './replies.config'
 
-export const functions = {
-  isArrayOfStrings: (params: CommandParams,
-    e: string[] | boolean | undefined): e is string[] => {
-    if (typeof e === 'undefined') {
-      params.ctx.channel.send(errors.badCommandConfig)
-      return false
+class TypeGuard {
+  isString(flag: string, params: CommandParams): string {
+    const element = params.args.get(flag)
 
-    } else if (typeof e === 'boolean') {
-      params.ctx.channel.send(
-        responses.fnIncorrectUsage(params.command.usage)
-      )
-      return false
+    if (element instanceof Array && element.length === 1) {
+      return element.shift()!
     }
-    return (e as string[]).shift !== undefined
+
+    throw new errors.TypeError(flag, params.ctx)
   }
 }
+
+export const typeguards = new TypeGuard()

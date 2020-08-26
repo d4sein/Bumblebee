@@ -1,10 +1,13 @@
 import * as Discord from "discord.js"
-import { errors } from '../../replies.config'
-import { commands, CommandParams, Command } from "../../commands.config"
+import { cm, CommandParams, Command } from "../../commands.config"
 import { groupBy } from 'underscore'
 
 module.exports = {
   run: async (params: CommandParams): Promise<void> => {
+    // NEED REWORK
+    // NEED REWORK
+    // NEED REWORK
+
     interface Fields {
       name: string,
       value: string
@@ -13,8 +16,8 @@ module.exports = {
     // Gets the name of the commands by category
     const categories = new Map(
       Object.entries(
-        groupBy([...commands.keys()], (command): string => {
-          const module = commands.get(command)!
+        groupBy([...cm.commands.keys()], (command): string => {
+          const module = cm.commands.get(command)!
           return module.category
         })
       )
@@ -24,7 +27,7 @@ module.exports = {
     const newCategories: Map<string, Command[]> = Array.from(categories.keys())
       .map(category => {
         const arrCommands = categories.get(category)!
-        return [category, ...arrCommands.map(command => commands.get(command))]
+        return [category, ...arrCommands.map(command => cm.commands.get(command))]
     })
     .reduce((acc, [key, ...values]) => acc
       .set(key, values), new Map)
@@ -93,15 +96,10 @@ module.exports = {
           msg.edit(embed)
         })
       })
-      .catch(async () => await params.ctx.channel.send(errors.unexpected))
+      .catch(async () => await params.ctx.channel.send('temporary error message xDDD'))
   },
   name: 'help',
   description: 'Shows the list of commands',
   usage: 'help',
-  category: 'Util',
-    parameters: new Map([
-    ['positional', []],
-    ['optional', []],
-    ['keyword', []]
-  ])
+  category: 'Util'
 }

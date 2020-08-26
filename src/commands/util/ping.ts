@@ -5,14 +5,12 @@ module.exports = {
   run: async (params: CommandParams): Promise<void> => {
     const embed = new Discord.MessageEmbed()
       .setDescription('Pinging..')
-      .setColor(process.env.EMBED_COLOR ?? 'DEFAULT')
+      .setColor(process.env.EMBED_COLOR!)
 
-    params.ctx.channel.send(embed)
-      .then(async msg => {
+    params.ctx.channel.send(embed).then(async msg => {
         const latency = msg.createdTimestamp - params.ctx.createdTimestamp
         
-        embed
-          .setDescription(latency + 'ms')
+        embed.setDescription(latency + 'ms')
 
         await msg.edit(embed)
       })
@@ -20,10 +18,5 @@ module.exports = {
   name: 'ping',
   description: 'Shows the bot\'s latency',
   usage: 'ping',
-  category: 'Util',
-    parameters: new Map([
-    ['positional', []],
-    ['optional', []],
-    ['keyword', []]
-  ])
+  category: 'Util'
 }

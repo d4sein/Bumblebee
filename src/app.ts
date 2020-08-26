@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 import * as Discord from 'discord.js'
-import { commands } from './commands.config'
+import { cm } from './commands.config'
 import { config } from 'dotenv'
 
 config()
@@ -20,7 +20,7 @@ function getEvents (dir: string) {
     .map(event => event.replace('.js', ''))
     .forEach(event => {
       import(path.join(dir, event))
-        .then(module => {client.on(module.name, module.run.bind(null, client))})
+        .then(module => client.on(module.name, module.run.bind(null, client)))
         .catch(err => console.error(err))
     })
 }
@@ -33,7 +33,7 @@ function getCommandsRecursively (dir: string) {
     .map(command => command.name.replace('.js', ''))
     .forEach(command => {
       import(path.join(dir, command))
-        .then(module => commands.set(module.name, module))
+        .then(module => cm.commands.set(module.name, module))
         .catch(err => console.error(err))
     })
   
@@ -44,6 +44,5 @@ function getCommandsRecursively (dir: string) {
 
 getEvents(eventsDir)
 getCommandsRecursively(commandsDir)
-
 
 client.login(process.env.TOKEN)
