@@ -14,7 +14,7 @@ export class ErrorHandler {
 }
 
 export class TypeError extends ErrorHandler {
-  constructor(flag: string, ctx: Discord.Message) {
-    super(ctx, `The flag "${flag}" should be of type "string".`)
+  constructor(flag: string, type: string, ctx: Discord.Message) {
+    super(ctx, `The flag "${flag}" should be of type "${type}".`)
   }
 }
