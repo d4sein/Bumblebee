@@ -9,7 +9,7 @@ module.exports = {
         // We don't need to log errors coming from ErrorHandler
         // since every throw is already under control
         if (err instanceof ErrorHandler) return
-        console.log(err)
+        console.error(err)
       })
   },
   name: 'message'

@@ -5,9 +5,11 @@ import { typeguards } from '../../typeguards.config'
 module.exports = {
   run: async (params: CommandParams): Promise<void> => {
     console.log(params.args)
-    const channel = typeguards.isString('ch', params).replace(/\D/g, '')
     const title = typeguards.isArrayStrings('title', params).join(' ')
     const desc = typeguards.isArrayStrings('desc', params).join(' ')
+
+    let channel = typeguards.isOptString('ch', params) ?? params.ctx.channel.id
+    if (channel) channel = channel.replace(/\D/g, '')
 
     const embed = new Discord.MessageEmbed()
       .setTitle(title)
@@ -23,7 +25,7 @@ module.exports = {
       .catch(console.error)
   },
   name: 'say',
-  description: 'Sends a message',
-  usage: 'say --ch <channel>! --title <title>! --desc <description>!',
+  description: 'Sends a message to a channel',
+  usage: 'say --ch <channel> --title <title>! --desc <description>!',
   category: 'Moderation'
 }

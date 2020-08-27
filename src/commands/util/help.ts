@@ -82,7 +82,7 @@ module.exports = {
           msg.edit(embed)
         })
       })
-      .catch(async () => await params.ctx.channel.send('temporary error message xDDD'))
+      .catch(err => console.error(err))
   },
   name: 'help',
   description: 'Shows the list of commands',
