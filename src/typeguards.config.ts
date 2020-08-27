@@ -1,5 +1,5 @@
 import * as errors from './errors.config'
-import { CommandParams } from './commands.config'
+import { CommandParams, Command } from './commands.config'
 
 class TypeGuard {
   isString(flag: string, params: CommandParams): string {
@@ -9,7 +9,17 @@ class TypeGuard {
       return element.shift()!
     }
 
-    throw new errors.TypeError(flag, params.ctx)
+    throw new errors.TypeError(flag, 'string', params.ctx)
+  }
+
+  isArrayStrings(flag: string, params: CommandParams): string[] {
+    const element = params.args.get(flag)
+
+    if (element instanceof Array) {
+      return element
+    }
+
+    throw new errors.TypeError(flag, 'Array<string>', params.ctx)
   }
 }
 
