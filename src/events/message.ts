@@ -4,6 +4,8 @@ import { ErrorHandler } from '../errors.config'
 
 module.exports = {
   run: async (client: Discord.Client, ctx: Discord.Message) => {
+    await cm.ciao_astroo(ctx)
+
     await cm.parseCommand(client, ctx)
       .catch(err => {
         // We don't need to log errors coming from ErrorHandler

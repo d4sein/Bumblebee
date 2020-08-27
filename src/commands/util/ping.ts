@@ -16,7 +16,7 @@ module.exports = {
       })
   },
   name: 'ping',
-  description: 'Shows the bot\'s latency',
+  description: 'Shows my latency',
   usage: 'ping',
   category: 'Util'
 }

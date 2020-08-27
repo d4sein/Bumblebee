@@ -4,10 +4,6 @@ import { groupBy } from 'underscore'
 
 module.exports = {
   run: async (params: CommandParams): Promise<void> => {
-    // NEED REWORK
-    // NEED REWORK
-    // NEED REWORK
-
     interface Fields {
       name: string,
       value: string
@@ -16,31 +12,21 @@ module.exports = {
     // Gets the name of the commands by category
     const categories = new Map(
       Object.entries(
-        groupBy([...cm.commands.keys()], (command): string => {
-          const module = cm.commands.get(command)!
-          return module.category
+        groupBy([...cm.commands.values()], (command) => {
+          return command.category
         })
       )
     )
-    
-    // Gets the module for each command
-    const newCategories: Map<string, Command[]> = Array.from(categories.keys())
-      .map(category => {
-        const arrCommands = categories.get(category)!
-        return [category, ...arrCommands.map(command => cm.commands.get(command))]
-    })
-    .reduce((acc, [key, ...values]) => acc
-      .set(key, values), new Map)
-
-    const arrCategories = [...newCategories.keys()]
-    let indexCategories = 0 
+      
+    const arrCategories = [...categories.keys()]
+    let indexCategories = 0
 
     let embedFields: Fields[] = []
 
-    function addToEmbedFields (): void {
+    function addToEmbedFields(): void {
       embedFields = []
 
-      newCategories.get(arrCategories[indexCategories])
+      categories.get(arrCategories[indexCategories])
         ?.forEach(module => embedFields.push({
             name: module.name,
             value: module.description
@@ -58,7 +44,7 @@ module.exports = {
     let embed = new Discord.MessageEmbed()
       .setTitle(arrCategories[indexCategories])
       .addFields(embedFields)
-      .setColor(process.env.EMBED_COLOR ?? 'DEFAULT')
+      .setColor(process.env.EMBED_COLOR!)
       .setTimestamp()
       .setFooter(`${indexCategories + 1}/${arrCategories.length}`)
     
@@ -89,7 +75,7 @@ module.exports = {
           embed = new Discord.MessageEmbed()
             .setTitle(arrCategories[indexCategories])
             .addFields(embedFields)
-            .setColor(process.env.EMBED_COLOR ?? 'DEFAULT')
+            .setColor(process.env.EMBED_COLOR!)
             .setTimestamp()
             .setFooter(`${indexCategories + 1}/${arrCategories.length}`)
           
