@@ -20,12 +20,6 @@ export interface Command {
 export class CommandManager {
   commands: Map<string, Command> = new Map()
 
-  async ciao_astroo(ctx: Discord.Message) {
-    if (ctx.author.tag === 'astroo-#8040' && ctx.content.includes('ciao')) {
-      ctx.channel.send(`ciao ${ctx.author}`)
-    }
-  }
-
   async parseCommand(client: Discord.Client, ctx: Discord.Message) {
     // Defaults PREFIX to `;`
     const prefix: string = process.env.PREFIX ?? ';'
