@@ -8,13 +8,10 @@ export interface CommandParams {
 }
 
 export interface Command {
+  name: string,
   run: (
     {client, ctx, command, args}: CommandParams
-  ) => Promise<void>,
-  name: string,
-  description: string,
-  usage: string,
-  category: string
+  ) => Promise<void>
 }
 
 class CommandManager {

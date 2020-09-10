@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 
 class Translator {
-  config: any // No reliable way to type JSON objects
+  config: any // No reliable way to type big JSON objects
   content: any
 
   constructor() {
@@ -34,9 +34,11 @@ class Translator {
         if (typeof retrieved === 'string') {
           return retrieved
         }
+
         return key
       }
     }
+    
     return retrieved
   }
 

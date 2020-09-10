@@ -4,32 +4,42 @@
 	},
 	"UI": {
 		"help": {
-			"description": "Shows the list of commands",
-			"usage": "help",
-			"category": "Util"
+			"attrs": {
+				"description": "Mostra a lista de comandos",
+				"usage": "help",
+				"category": "Util"
+			}
 		},
 		"ping": {
-			"description": "Shows my latency",
-			"usage": "ping",
-			"category": "Util"
+			"attrs": {
+				"description": "Mostra a minha latência",
+				"usage": "ping",
+				"category": "Util"
+			}
 		},
 		"setlocale": {
-			"description": "Define qual idioma eu devo falar",
-			"usage": "setlocale --locale <locale>!",
-			"category": "Moderação",
-			"same": "Já to falando em Português, idiota.",
+			"attrs": {
+				"description": "Define qual idioma eu devo falar",
+				"usage": "setlocale --locale <locale>!",
+				"category": "Moderação"
+			},
+			"same": "Já to falando Português, idiota.",
 			"success": "Boa, mudei meu idioma para Português.",
 			"fail": "Foi mal chefia, não consegui mudar meu idioma para %s."
 		},
 		"say": {
-			"description": "Sends a message to a channel",
-			"usage": "say --ch <channel> --title <title>! --desc <description>!",
-			"category": "Moderation"
+			"attrs": {
+				"description": "Manda uma mensagem pra um canal",
+				"usage": "say --ch <canal> --title <título>! --desc <descrição>!",
+				"category": "Moderação"
+			}
 		},
 		"slowmode": {
-			"description": "Sets slowmode to a channel",
-			"usage": "slowmode --ch <channel> --delay <delay>! --for <time>",
-			"category": "Moderation"
+			"attrs": {
+				"description": "Define slowmode pra um canal",
+				"usage": "slowmode --ch <canal> --delay <atraso>! --for <tempo>",
+				"category": "Moderação"
+			}
 		}
 	}
 }

@@ -1,5 +1,5 @@
-import * as Discord from 'discord.js'
 import util from 'util'
+import * as Discord from 'discord.js'
 import tl from './translator.config'
 
 
