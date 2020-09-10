@@ -1,0 +1,10 @@
+{
+    "defaultLocale": "en-us",
+    "locale": "pt-br",
+    "locales": [
+        "en-us",
+        "pt-br"
+    ],
+    "directory": "locales",
+    "keySeparator": "."
+}
