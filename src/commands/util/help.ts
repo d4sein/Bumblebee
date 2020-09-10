@@ -15,7 +15,7 @@ module.exports = {
     const categories = new Map(
       Object.entries(
         groupBy([...cm.commands.values()], (command) => {
-          return command.category
+          return tl.translate(`UI.${command.name}.attrs.category`)
         })
       )
     )
@@ -31,7 +31,7 @@ module.exports = {
       categories.get(arrCategories[indexCategories])
         ?.forEach(module => embedFields.push({
             name: module.name,
-            value: tl.translate(`UI.${module.name}.description`)
+            value: tl.translate(`UI.${module.name}.attrs.description`)
           })
         )
     }

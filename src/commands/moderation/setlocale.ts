@@ -6,7 +6,7 @@ import tl from '../../translator.config'
 module.exports = {
   name: 'setlocale',
   run: async (params: CommandParams): Promise<void> => {
-    if (!params.ctx.member!.hasPermission('MANAGE_MESSAGES')) {
+    if (!params.ctx.member!.hasPermission('ADMINISTRATOR')) {
       return
     }
 
