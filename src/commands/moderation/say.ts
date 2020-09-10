@@ -3,8 +3,12 @@ import { CommandParams } from '../../commands.config'
 import { typeguards } from '../../typeguards.config'
 
 module.exports = {
+  name: 'say',
   run: async (params: CommandParams): Promise<void> => {
-    console.log(params.args)
+    if (!params.ctx.member!.hasPermission('MANAGE_MESSAGES')) {
+      return
+    }
+
     const title = typeguards.isArrayStrings('title', params).join(' ')
     const desc = typeguards.isArrayStrings('desc', params).join(' ')
 
@@ -23,9 +27,5 @@ module.exports = {
         await (ch as Discord.TextChannel).send(embed)
       })
       .catch(console.error)
-  },
-  name: 'say',
-  description: 'Sends a message to a channel',
-  usage: 'say --ch <channel> --title <title>! --desc <description>!',
-  category: 'Moderation'
+  }
 }

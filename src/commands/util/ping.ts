@@ -2,6 +2,7 @@ import * as Discord from 'discord.js'
 import { CommandParams } from '../../commands.config'
 
 module.exports = {
+  name: 'ping',
   run: async (params: CommandParams): Promise<void> => {
     const embed = new Discord.MessageEmbed()
       .setDescription('Pinging..')
@@ -14,9 +15,5 @@ module.exports = {
 
         await msg.edit(embed)
       })
-  },
-  name: 'ping',
-  description: 'Shows my latency',
-  usage: 'ping',
-  category: 'Util'
+  }
 }

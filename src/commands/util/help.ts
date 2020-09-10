@@ -1,8 +1,10 @@
 import * as Discord from "discord.js"
-import { cm, CommandParams, Command } from "../../commands.config"
+import { cm, CommandParams } from "../../commands.config"
 import { groupBy } from 'underscore'
+import tl from '../../translator.config'
 
 module.exports = {
+  name: 'help',
   run: async (params: CommandParams): Promise<void> => {
     interface Fields {
       name: string,
@@ -17,7 +19,7 @@ module.exports = {
         })
       )
     )
-      
+    
     const arrCategories = [...categories.keys()]
     let indexCategories = 0
 
@@ -29,7 +31,7 @@ module.exports = {
       categories.get(arrCategories[indexCategories])
         ?.forEach(module => embedFields.push({
             name: module.name,
-            value: module.description
+            value: tl.translate(`UI.${module.name}.description`)
           })
         )
     }
@@ -83,9 +85,5 @@ module.exports = {
         })
       })
       .catch(err => console.error(err))
-  },
-  name: 'help',
-  description: 'Shows the list of commands',
-  usage: 'help',
-  category: 'Util'
+  }
 }
