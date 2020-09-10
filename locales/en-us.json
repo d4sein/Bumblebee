@@ -1,0 +1,35 @@
+{
+	"structError": {
+		"typeError": "The flag %s should be of type %s."
+	},
+	"UI": {
+		"help": {
+			"description": "Shows the list of commands",
+			"usage": "help",
+			"category": "Util"
+		},
+		"ping": {
+			"description": "Shows my latency",
+			"usage": "ping",
+			"category": "Util"
+		},
+		"setlocale": {
+			"description": "Sets what language I should speak",
+			"usage": "setlocale --locale <locale>!",
+			"category": "Moderation",
+			"same": "I'm already talking in English, dumbass.",
+			"success": "Nice, I've changed my language to English.",
+			"fail": "Sorry bud, I couldn't change my language to %s."
+		},
+		"say": {
+			"description": "Sends a message to a channel",
+			"usage": "say --ch <channel> --title <title>! --desc <description>!",
+			"category": "Moderation"
+		},
+		"slowmode": {
+			"description": "Sets slowmode to a channel",
+			"usage": "slowmode --ch <channel> --delay <delay>! --for <time>",
+			"category": "Moderation"
+		}
+	}
+}
