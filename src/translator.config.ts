@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 
 class Translator {
-  config: any // No reliable way to type big JSON objects
+  config: any // No convenient way to type big JSON objects
   content: any
 
   constructor() {
