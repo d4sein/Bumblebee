@@ -1,4 +1,7 @@
-import * as Discord from "discord.js"
+import * as Discord from 'discord.js'
+import util from 'util'
+import tl from './translator.config'
+
 
 export class ErrorHandler {
   message: string
@@ -15,6 +18,6 @@ export class ErrorHandler {
 
 export class TypeError extends ErrorHandler {
   constructor(flag: string, type: string, ctx: Discord.Message) {
-    super(ctx, `The flag "${flag}" should be of type "${type}".`)
+    super(ctx, util.format(tl.translate('structError.typeError'), flag, type))
   }
 }

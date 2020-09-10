@@ -17,7 +17,7 @@ export interface Command {
   category: string
 }
 
-export class CommandManager {
+class CommandManager {
   commands: Map<string, Command> = new Map()
 
   async parseCommand(client: Discord.Client, ctx: Discord.Message) {
@@ -27,14 +27,12 @@ export class CommandManager {
 
     // Defaults ARG_PREFIX to `--`
     const argPrefix: string = process.env.ARG_PREFIX ?? '--'
-
     const command: string[] = ctx.content.split(argPrefix)
-    
-    let commandName = command.shift()!
 
+    let commandName = command.shift()!
     // If command is undefined or only the prefix has been sent
     if (!commandName || !commandName.slice(prefix.length)) return
-
+    
     commandName = commandName.slice(prefix.length).trim()
 
     // Parses the command into a Map
