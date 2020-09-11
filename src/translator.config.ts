@@ -1,31 +1,44 @@
 import fs from 'fs'
 import path from 'path'
+import { servers, Servers } from './servers.config'
 
 class Translator {
   config: any // No convenient way to type big JSON objects
   content: any
+  servers: Servers
 
-  constructor() {
+  constructor(servers: Servers) {
     this.config = {}
     this.content = {}
-    this.update()
+    this.servers = servers
+
+    this.init()
   }
 
-  update(): void {
+  private init(): void {
     this.config = JSON.parse(
-      fs.readFileSync(path.join('.', 'src/translator.config.json'), 'utf8')
+      fs.readFileSync(path.join('.', 'translator.config.json'), 'utf8')
     )
 
-    this.content = JSON.parse(
-      fs.readFileSync(
-        path.join('.', this.config.directory, this.config.locale + '.json'), 'utf8'
-      )
-    )
+    const contentDir = fs.readdirSync(this.config.directory)
+
+    contentDir
+      .filter(c => c.endsWith('.json'))
+      .map(event => event.replace('.json', ''))
+      .forEach(c => {
+        this.content[c] = JSON.parse(
+          fs.readFileSync(
+            path.join('.', this.config.directory, c + '.json'), 'utf8'
+          )
+        )
+      })
   }
 
-  translate(key: string): string {
+  translate(key: string, server: string): string {
     const indexes = key.split(this.config.keySeparator)
-    let retrieved = this.content
+    const locale = this.servers.config[server].translator.locale
+
+    let retrieved = this.content[locale]
 
     for (const index of indexes) {
       try {
@@ -42,24 +55,21 @@ class Translator {
     return retrieved
   }
 
-  setLocale(locale: string): boolean {
+  setLocale(locale: string, server: string): boolean {
     if (this.config.locales.includes(locale)) {
-      this.config.locale = locale
+      this.servers.config[server].translator.locale = locale
+      this.servers.update()
 
-      fs.writeFileSync(
-        path.join('.', 'src/translator.config.json'),
-        JSON.stringify(this.config, null, 4), 'utf8'
-      )
       return true
     } else {
       return false
     }
   }
 
-  getLocale(): string {
-    return this.config.locale
+  getLocale(server: string): string {
+    return this.servers.config[server].translator.locale
   }
 }
 
-const tl = new Translator()
+const tl = new Translator(servers)
 export default tl

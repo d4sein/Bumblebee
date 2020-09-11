@@ -11,11 +11,12 @@ module.exports = {
       value: string
     }
 
+    const server = params.ctx.guild!.id
     // Gets the name of the commands by category
     const categories = new Map(
       Object.entries(
         groupBy([...cm.commands.values()], (command) => {
-          return tl.translate(`UI.${command.name}.attrs.category`)
+          return tl.translate(`UI.${command.name}.attrs.category`, server)
         })
       )
     )
@@ -31,7 +32,7 @@ module.exports = {
       categories.get(arrCategories[indexCategories])
         ?.forEach(module => embedFields.push({
             name: module.name,
-            value: tl.translate(`UI.${module.name}.attrs.description`)
+            value: tl.translate(`UI.${module.name}.attrs.description`, server)
           })
         )
     }

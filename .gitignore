@@ -1,3 +1,6 @@
+# Data files
+servers.config.json
+
 # Logs
 logs
 *.log

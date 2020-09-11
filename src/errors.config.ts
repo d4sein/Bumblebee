@@ -18,6 +18,6 @@ export class ErrorHandler {
 
 export class TypeError extends ErrorHandler {
   constructor(flag: string, type: string, ctx: Discord.Message) {
-    super(ctx, util.format(tl.translate('structError.typeError'), flag, type))
+    super(ctx, util.format(tl.translate('structError.typeError', ctx.guild!.id), flag, type))
   }
 }
