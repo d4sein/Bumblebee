@@ -25,7 +25,7 @@ export class Servers {
 
   private init(): void {
     if (!fs.existsSync(this.directory)) {
-      this.update()
+      this.save()
     }
 
     this.config = JSON.parse(
@@ -33,7 +33,7 @@ export class Servers {
     )
   }
 
-  update(): void {
+  save(): void {
     fs.writeFileSync(
       this.directory,
       JSON.stringify(this.config, null, 4), 'utf8'
@@ -44,18 +44,20 @@ export class Servers {
     servers.cache
       .forEach(server => {
         if (!Object.keys(this.config).includes(server.id)) {
-          this.config[server.id] = this.parseServerStruct()
+          this.config[server.id] = this.addNewServer()
         }
       })
     
-    this.update()
+    this.save()
   }
 
   onGuildCreateUpdate(server: Discord.Guild): void {
-    this.config[server.id] = this.parseServerStruct()
+    this.config[server.id] = this.addNewServer()
+
+    this.save()
   }
 
-  parseServerStruct(): ServerTranslator {
+  addNewServer(): ServerTranslator {
     return {
       translator: {
         locale: process.env.TRANSLATOR_DEFAULT_LOCALE ?? 'en-us'

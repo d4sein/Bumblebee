@@ -56,26 +56,27 @@ class Translator {
         if (typeof retrieved === 'string') {
           return retrieved
         }
+
         return key
       }
     }
     
     if (typeof retrieved === 'string') {
       return retrieved
-    } else {
-      return key
     }
+
+    return key
   }
 
   setLocale(locale: string, server: string): boolean {
     if (this.config.locales.includes(locale)) {
       this.servers.config[server].translator.locale = locale
-      this.servers.update()
+      this.servers.save()
 
       return true
-    } else {
-      return false
     }
+
+    return false
   }
 
   getLocale(server: string): string {
