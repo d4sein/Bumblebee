@@ -1,9 +1,10 @@
 import * as Discord from 'discord.js'
-import tl from '../translator.config'
+import { servers } from '../servers.config'
 
 module.exports = {
   name: 'ready',
   run: async (client: Discord.Client) => {
-  console.log('PAI TA ON')
+    servers.onReadyUpdate(client.guilds)
+    console.log('PAI TA ON')
   }
 }

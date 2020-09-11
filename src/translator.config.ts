@@ -24,7 +24,7 @@ class Translator {
 
     contentDir
       .filter(c => c.endsWith('.json'))
-      .map(event => event.replace('.json', ''))
+      .map(c => c.replace('.json', ''))
       .forEach(c => {
         this.content[c] = JSON.parse(
           fs.readFileSync(
@@ -68,6 +68,10 @@ class Translator {
 
   getLocale(server: string): string {
     return this.servers.config[server].translator.locale
+  }
+
+  getDefaultLocale(): string {
+    return this.config.defaultLocale
   }
 }
 
