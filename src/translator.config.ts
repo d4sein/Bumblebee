@@ -2,13 +2,26 @@ import fs from 'fs'
 import path from 'path'
 import { servers, Servers } from './servers.config'
 
+interface TranslatorConfig {
+  locales: string[]
+  directory: string
+  keySeparator: string
+}
+
+interface TranslatorContent {
+  [content: string]: TranslatorContent | string | undefined
+}
+
 class Translator {
-  config: any // No convenient way to type big JSON objects
-  content: any
+  config: TranslatorConfig
+  content: TranslatorContent
   servers: Servers
 
   constructor(servers: Servers) {
-    this.config = {}
+    this.config = JSON.parse(
+      fs.readFileSync(path.join('.', 'translator.config.json'), 'utf8')
+    )
+
     this.content = {}
     this.servers = servers
 
@@ -16,10 +29,6 @@ class Translator {
   }
 
   private init(): void {
-    this.config = JSON.parse(
-      fs.readFileSync(path.join('.', 'translator.config.json'), 'utf8')
-    )
-
     const contentDir = fs.readdirSync(this.config.directory)
 
     contentDir
@@ -41,18 +50,21 @@ class Translator {
     let retrieved = this.content[locale]
 
     for (const index of indexes) {
-      try {
+      if (retrieved instanceof Object) {
         retrieved = retrieved[index]
-      } catch {
+      } else {
         if (typeof retrieved === 'string') {
           return retrieved
         }
-
         return key
       }
     }
     
-    return retrieved
+    if (typeof retrieved === 'string') {
+      return retrieved
+    } else {
+      return key
+    }
   }
 
   setLocale(locale: string, server: string): boolean {
@@ -68,10 +80,6 @@ class Translator {
 
   getLocale(server: string): string {
     return this.servers.config[server].translator.locale
-  }
-
-  getDefaultLocale(): string {
-    return this.config.defaultLocale
   }
 }
 

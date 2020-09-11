@@ -1,10 +1,19 @@
 import fs from 'fs'
 import path from 'path'
 import Discord from 'discord.js'
-import tl from './translator.config'
+
+interface ServersConfig {
+  [server: string]: ServerTranslator
+}
+
+interface ServerTranslator {
+  translator: {
+    locale: string
+  }
+}
 
 export class Servers {
-  config: any // No convenient way to type big JSON objects
+  config: ServersConfig
   directory: string
 
   constructor() {
@@ -35,9 +44,7 @@ export class Servers {
     servers.cache
       .forEach(server => {
         if (!Object.keys(this.config).includes(server.id)) {
-          this.config[server.id] = this.parseServerStruct({
-            locale: tl.getDefaultLocale()
-          })
+          this.config[server.id] = this.parseServerStruct()
         }
       })
     
@@ -45,17 +52,13 @@ export class Servers {
   }
 
   onGuildCreateUpdate(server: Discord.Guild): void {
-    this.config[server.id] = this.parseServerStruct({
-      locale: tl.getDefaultLocale()
-    })
-
-    this.update()
+    this.config[server.id] = this.parseServerStruct()
   }
 
-  parseServerStruct({locale}: {locale: string}): object {
+  parseServerStruct(): ServerTranslator {
     return {
-      "translator": {
-        "locale": locale
+      translator: {
+        locale: process.env.TRANSLATOR_DEFAULT_LOCALE ?? 'en-us'
       }
     }
   }
